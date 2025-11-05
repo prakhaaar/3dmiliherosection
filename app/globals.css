@@ -1,0 +1,237 @@
+/* ---------------------------------------------------
+   🌈 Tailwind v3 Global Styles for 3DIMLI Layout
+   Stack: Next.js + Tailwind v3 + Framer Motion
+   → Handles theme tokens + hero section animations
+---------------------------------------------------- */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------
+   🎨 Theme System — all color tokens in HSL
+   Using HSL makes dark/light mode blending super clean
+---------------------------------------------------- */
+
+@layer base {
+  :root {
+    /* ----- Light mode palette ----- */
+    --background: 0 0% 100%; /* main page background (white) */
+    --foreground: 30 30 30; /* text color (dark grey) */
+
+    --card: 0 0% 100%; /* card bg */
+    --card-foreground: 30 30 30; /* card text */
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 30 30 30;
+
+    /* main accent color (cyan-ish blue) */
+    --primary: 199 89% 48%;
+    --primary-foreground: 0 0% 100%; /* white text on primary */
+    --primary-hover: 201 96% 32%; /* darker hover tone */
+
+    /* neutrals + muted UI colors */
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 0 0% 54%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    /* errors/danger tones */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* border + input styling */
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 199 89% 48%;
+
+    /* border radius for cards/buttons */
+    --radius: 1rem;
+
+    /* bubble colors used in hero background */
+    --bubble-indigo: 239 84% 67%;
+    --bubble-emerald: 160 84% 39%;
+    --bubble-amber: 38 92% 50%;
+    --bubble-blue: 221 83% 53%;
+    --bubble-purple: 271 81% 56%;
+    --bubble-red: 354 70% 54%;
+    --bubble-cyan: 184 77% 34%;
+  }
+
+  /* ----- Dark mode palette ----- */
+  .dark {
+    --background: 0 0% 7%; /* very dark bg */
+    --foreground: 0 0% 90%; /* light text */
+
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 90%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 90%;
+
+    --primary: 199 89% 48%; /* same cyan blue */
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 201 96% 32%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 0 0% 63%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 199 89% 48%;
+  }
+
+  /* apply border color + body defaults */
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ---------------------------------------------------
+   💫 HERO SECTION EFFECTS
+   background blobs, smooth drift animation, cursor blink
+---------------------------------------------------- */
+
+/* adds blur to background blobs */
+.custom-blur {
+  filter: blur(120px);
+}
+
+/* drifting animation for red blob */
+@keyframes driftRed {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  50% {
+    transform: translate(-20px, -30px) scale(1.05);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+/* drifting animation for cyan blob */
+@keyframes driftCyan {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  50% {
+    transform: translate(30px, 20px) scale(1.08);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+/* attach animations to utility classes */
+.animate-drift-red {
+  animation: driftRed 14s ease-in-out infinite;
+}
+.animate-drift-cyan {
+  animation: driftCyan 16s ease-in-out infinite;
+}
+
+/* ensures GPU optimizes transform-heavy animations */
+.will-change-transform {
+  will-change: transform;
+}
+
+/* ---------------------------------------------------
+   ✨ Typewriter Cursor Blink Animation
+---------------------------------------------------- */
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+.animate-blink {
+  animation: blink 1s step-start infinite;
+}
+
+/* ---------------------------------------------------
+   🧱 Default demo styles (safe to remove later)
+---------------------------------------------------- */
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* react/vite logo hover effect (for demo) */
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+/* spinning logo animation */
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* only spin logos if motion preference allows */
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+/* default card padding + doc text */
+.card {
+  padding: 2em;
+}
+.read-the-docs {
+  color: #888;
+}
+
+/* ---------------------------------------------------
+   🌑 Dark mode enhancements for hero section
+   adds glow, hover, and glass-like effects
+---------------------------------------------------- */
+@layer utilities {
+  .dark .hero-title {
+    text-shadow: 0 2px 20px rgba(255, 255, 255, 0.05);
+  }
+
+  .dark .bubble-item {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  }
+
+  .dark .bubble-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+  }
+
+  .dark .hero-button {
+    background: linear-gradient(90deg, #0284c7, #0369a1);
+    box-shadow: 0 4px 30px rgba(2, 132, 199, 0.25);
+  }
+}
