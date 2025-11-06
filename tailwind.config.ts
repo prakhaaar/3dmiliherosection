@@ -2,7 +2,7 @@ import type { Config } from "tailwindcss";
 import animate from "tailwindcss-animate";
 
 const config: Config = {
-  darkMode: "media", // ✅ system-based dark mode
+  darkMode: "media", // ✅ Uses system preference automatically
   content: [
     "./app/**/*.{ts,tsx,js,jsx,mdx}",
     "./components/**/*.{ts,tsx,js,jsx,mdx}",
@@ -16,6 +16,10 @@ const config: Config = {
         foreground: "hsl(var(--foreground))",
         primary: "hsl(var(--primary))",
         muted: "hsl(var(--muted-foreground))",
+      },
+
+      fontFamily: {
+        popins: ["var(--font-popins)"],
       },
 
       // 🌊 Custom animations
